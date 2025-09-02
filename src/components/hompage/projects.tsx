@@ -8,6 +8,7 @@ import { Github, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 type Project = {
+  id: number;
   title: string;
   description: string;
   image: string;
@@ -17,6 +18,7 @@ type Project = {
 
 const projects: Project[] = [
   {
+    id: 1,
     title: "Realtime Dashboard",
     description: "Streaming charts with server actions and optimistic updates.",
     image: "https://i.pinimg.com/1200x/39/50/74/395074fe064db21f5a3f51f56fc48df2.jpg",
@@ -24,37 +26,29 @@ const projects: Project[] = [
     links: { github: "#", demo: "#" },
   },
   {
+    id: 2,
     title: "3D Product Showcase",
     description: "Interactive 3D viewer with smooth camera transitions.",
     image: "https://i.pinimg.com/1200x/02/86/bb/0286bb72a15f9473bc986c99b9f9859d.jpg",
     tags: ["React Three Fiber", "Framer Motion"],
     links: { demo: "#" },
   },
-   {
+  {
+    id: 3,
     title: "3D Product Showcase",
     description: "Interactive 3D viewer with smooth camera transitions.",
     image: "https://i.pinimg.com/1200x/02/86/bb/0286bb72a15f9473bc986c99b9f9859d.jpg",
     tags: ["React Three Fiber", "Framer Motion"],
     links: { demo: "#" },
-  }, {
+  },
+  {
+    id: 4,
     title: "3D Product Showcase",
     description: "Interactive 3D viewer with smooth camera transitions.",
     image: "https://i.pinimg.com/1200x/02/86/bb/0286bb72a15f9473bc986c99b9f9859d.jpg",
     tags: ["React Three Fiber", "Framer Motion"],
     links: { demo: "#" },
-  }, {
-    title: "3D Product Showcase",
-    description: "Interactive 3D viewer with smooth camera transitions.",
-    image: "https://i.pinimg.com/1200x/02/86/bb/0286bb72a15f9473bc986c99b9f9859d.jpg",
-    tags: ["React Three Fiber", "Framer Motion"],
-    links: { demo: "#" },
-  }, {
-    title: "3D Product Showcase",
-    description: "Interactive 3D viewer with smooth camera transitions.",
-    image: "https://i.pinimg.com/1200x/02/86/bb/0286bb72a15f9473bc986c99b9f9859d.jpg",
-    tags: ["React Three Fiber", "Framer Motion"],
-    links: { demo: "#" },
-  },  
+  },
   // Add more projects as needed
 ];
 
@@ -138,8 +132,10 @@ function ProjectCard({ p }: { p: Project }) {
             </div>
             <p className="text-sm text-muted-foreground">{p.description}</p>
             <div className="flex flex-wrap gap-2">
-              {p.tags.map((t) => (
-                <Badge key={t} variant="secondary" className="border bg-background/60 backdrop-blur">{t}</Badge>
+              {p.tags.map((t, i) => (
+                <Badge key={`${p.id}-tag-${i}`} variant="secondary" className="border bg-background/60 backdrop-blur">
+                  {t}
+                </Badge>
               ))}
             </div>
           </CardContent>
@@ -152,7 +148,7 @@ function ProjectCard({ p }: { p: Project }) {
 // --- Projects Component ---
 export default function Projects() {
   const container = { hidden: {}, show: { transition: { staggerChildren: 0.15 } } };
-  const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } } };
+  const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100 } } };
 
   return (
     <section id="projects" className="relative scroll-mt-20 border-t border-b bg-white py-16">
@@ -165,7 +161,7 @@ export default function Projects() {
         </div>
         <motion.div variants={container} initial="hidden" animate="show" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <motion.div key={p.title} variants={item}>
+            <motion.div key={p.id} variants={item}>
               <ProjectCard p={p} />
             </motion.div>
           ))}
