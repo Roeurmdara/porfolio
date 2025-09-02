@@ -34,9 +34,9 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <span className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-black text-white">
-            Y
+            R
           </span>
-          <span className="hidden sm:inline">Your Name</span>
+          <span className="hidden sm:inline">Roeurm Dara</span>
           <span className="sr-only">Home</span>
         </Link>
 
@@ -50,12 +50,12 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>
-            <Link href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <Link href="https://github.com/Roeurmdara" target="_blank" rel="noreferrer" aria-label="GitHub">
               <Github className="h-5 w-5" />
             </Link>
           </Button>
           <Button variant="ghost" size="icon" asChild>
-            <Link href="https://linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <Link href="https://www.linkedin.com/in/rouerm-dara-757176346/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
               <Linkedin className="h-5 w-5" />
             </Link>
           </Button>
@@ -64,7 +64,7 @@ export default function Navbar() {
               <Mail className="h-5 w-5" />
             </a>
           </Button>
-          <ThemeToggle />
+      
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden bg-transparent">

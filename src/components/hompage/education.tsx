@@ -1,39 +1,48 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Calendar, GraduationCap, MapPin } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { motion } from "framer-motion";
+import { Calendar, GraduationCap, MapPin } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 type Edu = {
-  degree: string
-  school: string
-  location?: string
-  period: string
-  gpa?: string
-  highlights: string[]
-  logo?: string
-}
+  degree: string;
+  school: string;
+  location?: string;
+  period: string;
+  gpa?: string;
+  highlights: string[];
+  logo?: string;
+};
 
 const education: Edu[] = [
+
   {
-    degree: "B.Sc. Computer Science",
-    school: "Tech University",
-    location: "San Francisco, CA",
-    period: "2017 — 2021",
-    gpa: "3.8/4.0",
-    highlights: ["Human-Computer Interaction", "Computer Graphics", "Distributed Systems"],
-    logo: "https://i.pinimg.com/1200x/d0/4b/d2/d04bd2b689ded954e70ce4fdd6df1a58.jpg",
-  },
-  {
-    degree: "Frontend Nanodegree",
-    school: "Udacity",
-    location: "Online",
+    degree: "High School Diploma",
+    school: "sovannaphumi school",
+    location: "poipet",
     period: "2022",
-    highlights: ["Performance optimization", "Accessibility", "Testing"],
+    highlights: ["B+", "Good student", "1st Rank"],
+    logo: "https://i.pinimg.com/1200x/b8/03/28/b80328dc483c1e6c5f04c72530153b95.jpg",
+  },
+  {
+    degree: "Information Technology Engineering",
+    school: "Royal University of Phnom Penh",
+    location: "Phnom Penh",
+    period: "2024",
+    highlights: ["3.68 GPA", "Software Development", "sophomore"],
+    logo: "https://i.pinimg.com/1200x/31/9e/62/319e62c33e1ec7cdd296fae8b488bc44.jpg",
+  },
+   {
+    degree: "Full Stack Development",
+    school: "Institute of Science and Technology Advanced Development  ",
+    location: "Phnom Penh",
+    period: "2024",
+    highlights: ["good", "full stack developer", "1st generation"],
     logo: "https://i.pinimg.com/1200x/d0/4b/d2/d04bd2b689ded954e70ce4fdd6df1a58.jpg",
   },
-]
+];
 
 export default function Education() {
   return (
@@ -41,11 +50,16 @@ export default function Education() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="mb-8">
           <h2 className="text-3xl font-semibold">Education</h2>
-          <p className="mt-2 text-muted-foreground">Foundations that inform my design and engineering decisions.</p>
+          <p className="mt-2 text-muted-foreground">
+            Foundations that inform my design and engineering decisions.
+          </p>
         </div>
 
         <div className="relative">
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-border md:left-1/2" aria-hidden />
+          <div
+            className="absolute left-4 top-0 bottom-0 w-px bg-border md:left-1/2"
+            aria-hidden
+          />
           <div className="grid gap-8">
             {education.map((e, idx) => (
               <motion.div
@@ -54,24 +68,40 @@ export default function Education() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className={`relative md:grid md:grid-cols-2 ${idx % 2 === 0 ? "md:pr-8" : "md:pl-8"}`}
+                className={`relative md:grid md:grid-cols-2 ${
+                  idx % 2 === 0 ? "md:pr-8" : "md:pl-8"
+                }`}
               >
-                <div className={`hidden md:block ${idx % 2 === 0 ? "col-start-1 text-right" : "col-start-2"}`}>
+                <div
+                  className={`hidden md:block ${
+                    idx % 2 === 0 ? "col-start-1 text-right" : "col-start-2"
+                  }`}
+                >
                   <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="h-4 w-4" />
                     {e.period}
                   </div>
                 </div>
 
-                <div className={`${idx % 2 === 0 ? "md:col-start-2" : "md:col-start-1"}`}>
+                <div
+                  className={`${
+                    idx % 2 === 0 ? "md:col-start-2" : "md:col-start-1"
+                  }`}
+                >
                   <Card className="border-muted-foreground/10">
                     <CardContent className="flex items-start gap-4 p-6">
-                      <div className="hidden shrink-0 rounded-lg border bg-muted p-2 md:inline-flex">
-                        <img
-                          src={e.logo || "/placeholder.svg?height=72&width=72&query=school+logo"}
-                          alt={`${e.school} logo`}
-                          className="h-12 w-12 object-contain"
-                        />
+                      <div className="hidden shrink-0 rounded-lg border bg-white p-2 md:inline-flex">
+                        <div className="relative h-12 w-12">
+                          <Image
+                            src={
+                              e.logo ||
+                              "/placeholder.svg?height=72&width=72&query=school+logo"
+                            }
+                            alt={`${e.school} logo`}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
                       </div>
                       <div className="w-full">
                         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -79,7 +109,8 @@ export default function Education() {
                           <GraduationCap className="h-5 w-5 text-muted-foreground" />
                         </div>
                         <div className="mt-1 text-sm text-muted-foreground">
-                          {e.school} • <span className="md:hidden">{e.period}</span>
+                          {e.school} •{" "}
+                          <span className="md:hidden">{e.period}</span>
                         </div>
                         <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
                           {e.location && (
@@ -89,7 +120,10 @@ export default function Education() {
                             </span>
                           )}
                           {e.gpa && (
-                            <Badge variant="secondary" className="border bg-background/60">
+                            <Badge
+                              variant="secondary"
+                              className="border bg-background/60"
+                            >
                               GPA {e.gpa}
                             </Badge>
                           )}
@@ -120,5 +154,5 @@ export default function Education() {
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,16 +1,8 @@
-// components/Carousel3D.tsx
 "use client";
 
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  TouchEvent,
-  ReactNode,
-} from "react";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import React, { useRef, useEffect, useState, TouchEvent } from "react";
+import {  ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { useIsMobile } from "../hooks/use-mobile";
 import Link from "next/link";
 
 export interface Carousel3DItem {
@@ -28,10 +20,6 @@ interface Carousel3DProps {
   autoRotate?: boolean;
   rotateInterval?: number;
   cardHeight?: number;
-  title?: string;
-  subtitle?: string;
-  tagline?: string;
-  isMobileSwipe?: boolean;
 }
 
 const Carousel3D = ({
@@ -39,10 +27,6 @@ const Carousel3D = ({
   autoRotate = true,
   rotateInterval = 4000,
   cardHeight = 500,
-  title = "From Textile to Intelligence",
-  subtitle = "Customer Cases",
-  tagline = "Explore how our textile sensor technology is revolutionizing multiple industries with intelligent fabric solutions tailored to specific needs.",
-  isMobileSwipe = true,
 }: Carousel3DProps) => {
   const [active, setActive] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -50,7 +34,6 @@ const Carousel3D = ({
   const [isHovering, setIsHovering] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const isMobile = useIsMobile();
   const minSwipeDistance = 50;
 
   useEffect(() => {
@@ -101,15 +84,11 @@ const Carousel3D = ({
   return (
     <section
       id="carousel3d"
-      className="bg-transparent min-w-full mx-aut 
-    flex items-center justify-center"
+      className="bg-transparent min-w-full mx-auto flex items-center justify-center"
     >
-      <div
-        className="w-full px-4 sm:px-6 lg:px-8 
-      min-w-[350px] md:min-w-[1000px] max-w-7xl  "
-      >
+      <div className="w-full px-4 sm:px-6 lg:px-8 min-w-[350px] md:min-w-[1000px] max-w-7xl">
         <div
-          className="relative overflow-hidden h-[550px] "
+          className="relative overflow-hidden h-[550px]"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           onTouchStart={onTouchStart}
@@ -117,7 +96,7 @@ const Carousel3D = ({
           onTouchEnd={onTouchEnd}
           ref={carouselRef}
         >
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center ">
+          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
             {items.map((item, index) => (
               <div
                 key={item.id}
@@ -126,8 +105,7 @@ const Carousel3D = ({
                 )}`}
               >
                 <Card
-                  className={`overflow-hidden bg-background h-[${cardHeight}px] border shadow-sm 
-                hover:shadow-md flex flex-col`}
+                  className={`overflow-hidden bg-background h-[${cardHeight}px] border shadow-sm hover:shadow-md flex flex-col`}
                 >
                   <div
                     className="relative bg-black p-6 flex items-center justify-center h-48 overflow-hidden"
@@ -143,7 +121,7 @@ const Carousel3D = ({
                         {item.brand.toUpperCase()}
                       </h3>
                       <div className="w-12 h-1 bg-white mx-auto mb-2" />
-                      <p className="text-sm ">{item.title}</p>
+                      <p className="text-sm">{item.title}</p>
                     </div>
                   </div>
 
@@ -187,42 +165,6 @@ const Carousel3D = ({
                   </CardContent>
                 </Card>
               </div>
-            ))}
-          </div>
-
-          {!isMobile && (
-            <>
-              <button
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all hover:scale-110"
-                onClick={() =>
-                  setActive((prev) => (prev - 1 + items.length) % items.length)
-                }
-                aria-label="Previous"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all hover:scale-110"
-                onClick={() => setActive((prev) => (prev + 1) % items.length)}
-                aria-label="Next"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </>
-          )}
-
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center space-x-3 z-30">
-            {items.map((_, idx) => (
-              <button
-                key={idx}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  active === idx
-                    ? "bg-gray-500 w-5"
-                    : "bg-gray-200 hover:bg-gray-300"
-                }`}
-                onClick={() => setActive(idx)}
-                aria-label={`Go to item ${idx + 1}`}
-              />
             ))}
           </div>
         </div>

@@ -5,11 +5,11 @@ import Image from "next/image"
 
 const tools = [
   { name: "Next.js", logo: "https://cdn.worldvectorlogo.com/logos/next-js.svg" },
-  { name: "TypeScript", logo: "https://cdn.worldvectorlogo.com/logos/next-js.svg" },
-  { name: "Framer Motion", logo: "https://cdn.worldvectorlogo.com/logos/next-js.svg" },
-  { name: "Tailwind", logo: "https://cdn.worldvectorlogo.com/logos/figma-icon-one-color.svg" },
-  { name: "Three.js", logo: "https://cdn.worldvectorlogo.com/logos/notion-2.svg" },
-  { name: "Vercel", logo: "https://cdn.worldvectorlogo.com/logos/github-icon-1.svg" },
+  { name: "TypeScript", logo: "https://cdn.worldvectorlogo.com/logos/typescript.svg" },
+  { name: "Vercel", logo: "https://cdn.worldvectorlogo.com/logos/vercel.svg" },
+  { name: "Figma", logo: "https://cdn.worldvectorlogo.com/logos/figma-icon-one-color.svg" },
+  { name: "Notion", logo: "https://cdn.worldvectorlogo.com/logos/notion-2.svg" },
+  { name: "GitHub", logo: "https://cdn.worldvectorlogo.com/logos/github-icon-1.svg" },
 ]
 
 function Row({ reverse = false }: { reverse?: boolean }) {

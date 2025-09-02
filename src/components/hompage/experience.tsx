@@ -19,7 +19,7 @@ const timeline: Exp[] = [
     points: [
       "Led migration to React Server Components and server actions.",
       "Built design system adopted across 5 product teams.",
-      "Reduced LCP by 32% via streaming and image optimization.",
+      "Reduced LCP by 32% via streaming and Image optimization.",
     ],
   },
   {

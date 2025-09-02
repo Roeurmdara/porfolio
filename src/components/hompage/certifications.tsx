@@ -1,22 +1,23 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Award, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useEffect, useRef } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Award, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 type Cert = {
-  id: number
-  title: string
-  issuer: string
-  date: string
-  credentialId?: string
-  verifyUrl?: string
-  image?: string
-  description: string
-  tags: string[]
-}
+  id: number;
+  title: string;
+  issuer: string;
+  date: string;
+  credentialId?: string;
+  verifyUrl?: string;
+  Image?: string;
+  description: string;
+  tags: string[];
+};
 
 function AuroraBackground() {
   return (
@@ -25,7 +26,7 @@ function AuroraBackground() {
       <div className="absolute -right-40 top-20 h-[60rem] w-[60rem] rounded-full bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-emerald-400/20 via-teal-400/10 to-transparent blur-3xl" />
       <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.05),transparent)]" />
     </div>
-  )
+  );
 }
 
 const certs: Cert[] = [
@@ -36,10 +37,11 @@ const certs: Cert[] = [
     date: "2024",
     credentialId: "ABC-123-UX",
     verifyUrl: "#",
-    image: "https://i.pinimg.com/1200x/91/ce/7a/91ce7a6b7c6bffe3bf3a646eb7fc7767.jpg",
+    Image:
+      "https://i.pinimg.com/1200x/91/ce/7a/91ce7a6b7c6bffe3bf3a646eb7fc7767.jpg",
     description:
       "Comprehensive program covering user experience design principles, user research, wireframing, prototyping, and usability testing.",
-    tags: ["UX Design", "User Research", "Prototyping", "Figma"]
+    tags: ["UX Design", "User Research", "Prototyping", "Figma"],
   },
   {
     id: 2,
@@ -48,10 +50,11 @@ const certs: Cert[] = [
     date: "2023",
     credentialId: "AWS-CLF-001",
     verifyUrl: "#",
-    image: "https://i.pinimg.com/1200x/34/85/ac/3485acf4ed112bcbd5f328e670a81e9b.jpg",
+    Image:
+      "https://i.pinimg.com/1200x/34/85/ac/3485acf4ed112bcbd5f328e670a81e9b.jpg",
     description:
       "Foundational certification demonstrating cloud computing knowledge and AWS services understanding for technical and business roles.",
-    tags: ["Cloud Computing", "AWS", "Infrastructure", "Security"]
+    tags: ["Cloud Computing", "AWS", "Infrastructure", "Security"],
   },
   {
     id: 3,
@@ -60,91 +63,125 @@ const certs: Cert[] = [
     date: "2023",
     credentialId: "AWS-CSA-002",
     verifyUrl: "#",
-    image: "https://i.pinimg.com/736x/b9/92/58/b992583b2de4f01b69a4cb1e43d2da3c.jpg",
+    Image:
+      "https://i.pinimg.com/736x/b9/92/58/b992583b2de4f01b69a4cb1e43d2da3c.jpg",
     description:
       "Advanced certification demonstrating knowledge of AWS architecture, deployment, and best practices for scalable solutions.",
-    tags: ["Cloud Computing", "AWS", "Architecture", "Best Practices"]
+    tags: ["Cloud Computing", "AWS", "Architecture", "Best Practices"],
   },
-]
+  {
+    id: 4,
+    title: "Google Data Analytics Professional Certificate",
+    issuer: "Google",
+    date: "2024",
+    credentialId: "ABC-123-DA",
+    verifyUrl: "#",
+    Image:
+      "https://i.pinimg.com/736x/b9/24/01/b92401d7d7851ea4ee59c6aaed11c5c5.jpg",
+    description:
+      "Comprehensive program covering data analysis, visualization, and machine learning using Google tools.",
+    tags: ["Data Analytics", "Google", "Machine Learning", "Data Visualization"],
+  },
+  {
+    id: 5,
+    title: "Google Project Management Professional Certificate",
+    issuer: "Google",
+    date: "2024",
+    credentialId: "ABC-123-PM",
+    verifyUrl: "#",
+    Image:
+      "https://i.pinimg.com/1200x/51/13/3b/51133b2a32917490d572dc3e1f66be35.jpg",
+    description:
+      "Comprehensive program covering project management principles, methodologies, and tools using Google Workspace.",
+    tags: ["Project Management", "Google", "Agile", "Collaboration"],
+  },
+];
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const checkIsMobile = () => setIsMobile(window.innerWidth < 768)
-    checkIsMobile()
-    window.addEventListener("resize", checkIsMobile)
-    return () => window.removeEventListener("resize", checkIsMobile)
-  }, [])
-  return isMobile
+    const checkIsMobile = () => setIsMobile(window.innerWidth < 768);
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+  return isMobile;
 }
 
 export default function Certifications() {
-  const [active, setActive] = useState(0)
-  const carouselRef = useRef<HTMLDivElement>(null)
-  const [isInView, setIsInView] = useState(false)
-  const [isHovering, setIsHovering] = useState(false)
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
-  const isMobile = useIsMobile()
-  const minSwipeDistance = 50
+  const [active, setActive] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const minSwipeDistance = 50;
 
   // Autoplay
   useEffect(() => {
     if (isInView && !isHovering) {
       const interval = setInterval(() => {
-        setActive((prev) => (prev + 1) % certs.length)
-      }, 4000)
-      return () => clearInterval(interval)
+        setActive((prev) => (prev + 1) % certs.length);
+      }, 4000);
+      return () => clearInterval(interval);
     }
-  }, [isInView, isHovering])
+  }, [isInView, isHovering]);
 
   // Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
       { threshold: 0.2 }
-    )
-    if (carouselRef.current) observer.observe(carouselRef.current)
-    return () => observer.disconnect()
-  }, [])
+    );
+    if (carouselRef.current) observer.observe(carouselRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") setActive((prev) => (prev - 1 + certs.length) % certs.length)
-      if (e.key === "ArrowRight") setActive((prev) => (prev + 1) % certs.length)
-    }
-    window.addEventListener("keydown", handleKey)
-    return () => window.removeEventListener("keydown", handleKey)
-  }, [])
+      if (e.key === "ArrowLeft")
+        setActive((prev) => (prev - 1 + certs.length) % certs.length);
+      if (e.key === "ArrowRight")
+        setActive((prev) => (prev + 1) % certs.length);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
   // Touch gestures
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX)
-    setTouchEnd(null)
-  }
-  const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX)
+    setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd(null);
+  };
+  const onTouchMove = (e: React.TouchEvent) =>
+    setTouchEnd(e.targetTouches[0].clientX);
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-    const distance = touchStart - touchEnd
-    if (distance > minSwipeDistance) setActive((prev) => (prev + 1) % certs.length)
-    else if (distance < -minSwipeDistance) setActive((prev) => (prev - 1 + certs.length) % certs.length)
-  }
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    if (distance > minSwipeDistance)
+      setActive((prev) => (prev + 1) % certs.length);
+    else if (distance < -minSwipeDistance)
+      setActive((prev) => (prev - 1 + certs.length) % certs.length);
+  };
 
   const getCardAnimationClass = (index: number) => {
-    const isActive = index === active
-    const isNext = index === (active + 1) % certs.length
-    const isPrev = index === (active - 1 + certs.length) % certs.length
+    const isActive = index === active;
+    const isNext = index === (active + 1) % certs.length;
+    const isPrev = index === (active - 1 + certs.length) % certs.length;
 
-    if (isActive) return "scale-100 opacity-100 z-20 translate-x-0 rotate-y-0"
+    if (isActive) return "scale-100 opacity-100 z-20 translate-x-0 rotate-y-0";
 
-    if (typeof window !== "undefined" && window.innerWidth < 640) return "scale-90 opacity-0 translate-x-0"
+    if (typeof window !== "undefined" && window.innerWidth < 640)
+      return "scale-90 opacity-0 translate-x-0";
 
-    if (isNext) return "translate-x-[30%] sm:translate-x-[35%] md:translate-x-[40%] scale-90 sm:scale-95 opacity-40 sm:opacity-60 z-10 rotate-y-6"
-    if (isPrev) return "translate-x-[-30%] sm:translate-x-[-35%] md:translate-x-[-40%] scale-90 sm:scale-95 opacity-40 sm:opacity-60 z-10 -rotate-y-6"
+    if (isNext)
+      return "translate-x-[30%] sm:translate-x-[35%] md:translate-x-[40%] scale-90 sm:scale-95 opacity-40 sm:opacity-60 z-10 rotate-y-6";
+    if (isPrev)
+      return "translate-x-[-30%] sm:translate-x-[-35%] md:translate-x-[-40%] scale-90 sm:scale-95 opacity-40 sm:opacity-60 z-10 -rotate-y-6";
 
-    return "scale-90 opacity-0 translate-x-0"
-  }
+    return "scale-90 opacity-0 translate-x-0";
+  };
 
   return (
     <section
@@ -162,7 +199,9 @@ export default function Certifications() {
             Continuous Learning & Expertise
           </p>
           <p className="mt-3 sm:mt-4 text-xs sm:text-sm md:text-base text-slate-500 max-w-xs sm:max-w-2xl mx-auto leading-relaxed">
-            Explore my professional development journey through industry-recognized certifications that demonstrate commitment to excellence and specialized knowledge.
+            Explore my professional development journey through
+            industry-recognized certifications that demonstrate commitment to
+            excellence and specialized knowledge.
           </p>
         </div>
 
@@ -180,22 +219,31 @@ export default function Certifications() {
             {certs.map((cert, index) => (
               <div
                 key={cert.id}
-                className={`absolute top-0 w-full max-w-[320px] xs:max-w-[340px] sm:max-w-[380px] md:max-w-lg lg:max-w-xl px-2 sm:px-0 transform transition-all duration-500 ease-out ${getCardAnimationClass(index)}`}
+                className={`absolute top-0 w-full max-w-[320px] xs:max-w-[340px] sm:max-w-[380px] md:max-w-lg lg:max-w-xl px-2 sm:px-0 transform transition-all duration-500 ease-out ${getCardAnimationClass(
+                  index
+                )}`}
               >
                 <Card className="overflow-hidden bg-white/90 backdrop-blur-sm h-auto sm:h-[550px] md:h-[600px] lg:h-[650px] xl:h-[700px] border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col hover:scale-105">
                   <div className="relative h-56 xs:h-60 sm:h-64 md:h-72 lg:h-80 overflow-hidden bg-gradient-to-br from-white to-slate-50">
-                    <img
-                      src={cert.image || "/placeholder.svg"}
-                      alt={`${cert.issuer} certificate`}
-                      className="w-full h-full object-contain bg-gray-50 opacity-0 transition-opacity duration-700 ease-in"
-                      loading="lazy"
-                      onLoad={(e) => (e.currentTarget.style.opacity = "1")}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement
-                        target.src =
-                          "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23f3f4f6'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial' font-size='16'%3ECertificate Image%3C/text%3E%3C/svg%3E"
-                      }}
-                    />
+                    <div className="relative w-full h-60">
+                      {" "}
+                      {/* or h-[your-height] */}
+                      <Image
+                        src={cert.Image || "/placeholder.svg"}
+                        alt={`${cert.issuer} certificate`}
+                        className="object-contain bg-gray-50 opacity-0 transition-opacity duration-700 ease-in"
+                        loading="lazy"
+                        onLoad={(e) => (e.currentTarget.style.opacity = "1")}
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src =
+                            "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='300' viewBox='0 0 400 200'%3E%3Crect width='400' height='200' fill='%23f3f4f6'/%3E%3Ctext x='200' y='100' text-anchor='middle' dy='.3em' fill='%236b7280' font-family='Arial' font-size='16'%3ECertificate Image%3C/text%3E%3C/svg%3E";
+                        }}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    </div>
+
                     <span className="absolute left-2 sm:left-3 top-2 sm:top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] xs:text-[10px] sm:text-xs backdrop-blur shadow-sm">
                       <Award className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 text-emerald-500" />
                       Certified
@@ -268,7 +316,9 @@ export default function Certifications() {
           <div className="hidden sm:block">
             <button
               className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white/80 rounded-full flex items-center justify-center text-gray-500 hover:bg-white z-30 shadow-md transition-all hover:scale-110"
-              onClick={() => setActive((prev) => (prev - 1 + certs.length) % certs.length)}
+              onClick={() =>
+                setActive((prev) => (prev - 1 + certs.length) % certs.length)
+              }
               aria-label="Previous"
             >
               <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
@@ -307,5 +357,5 @@ export default function Certifications() {
         </div>
       </div>
     </section>
-  )
+  );
 }

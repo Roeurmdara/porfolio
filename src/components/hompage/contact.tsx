@@ -2,44 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, PhoneCall } from "lucide-react";
-import Link from "next/link";
-import { ScrollReveal } from "../ScrollReveal"; // Adjust path as needed
 
-function AuroraBackground() {
-  return (
-    <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute -top-40 left-0 h-[60rem] w-[60rem] rounded-full bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-rose-500/20 via-fuchsia-500/10 to-transparent blur-3xl" />
-      <div className="absolute -right-40 top-20 h-[60rem] w-[60rem] rounded-full bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-emerald-400/20 via-teal-400/10 to-transparent blur-3xl" />
-      <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.05),transparent)]" />
-    </div>
-  );
-}
-
-function FloatingBlobs() {
-  return (
-    <div className="pointer-events-none absolute inset-0 -z-10">
-      <motion.div
-        className="absolute left-10 top-10 h-40 w-40 rounded-full bg-emerald-400/20 blur-2xl"
-        animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-        transition={{
-          duration: 10,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-10 right-10 h-48 w-48 rounded-full bg-rose-500/20 blur-2xl"
-        animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-        transition={{
-          duration: 12,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
-      />
-    </div>
-  );
-}
 
 export default function ContactUsHero() {
   return (
@@ -59,9 +22,9 @@ export default function ContactUsHero() {
         >
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
-              <h2 className="text-3xl font-semibold">Featured Projects</h2>
+              <h2 className="text-3xl font-semibold">Get in Touch</h2>
               <p className="mt-2 text-muted-foreground">
-                A selection of work with a focus on UX, performance, and motion.
+                Have a question or want to work together? I’d love to hear from you!
               </p>
             </div>
           </div>
