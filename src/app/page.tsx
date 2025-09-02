@@ -25,7 +25,7 @@ export default function HomePage() {
       <Experience />
       <ContactPage />
       <Text
-        text="“Learning, growing, and enjoying the journey.”"
+        text="Learning, growing, and enjoying the journey."
         className="font-display text-center text-4xl font-bold tracking-[-0.02em] text-black drop-shadow-sm dark:text-white md:text-6xl md:leading-[5rem] pointer-events-auto"
       />
       <SmoothCursor />

@@ -58,37 +58,6 @@ const AccordionItem = ({ item, isActive, onActivate }: AccordionItemProps) => (
   </div>
 )
 
-// --- Background Blobs ---
-
-
-function FloatingBlobs() {
-  const [isDesktop, setIsDesktop] = useState(true)
-
-  useEffect(() => {
-    const updateSize = () => setIsDesktop(window.innerWidth > 768)
-    updateSize()
-    window.addEventListener('resize', updateSize)
-    return () => window.removeEventListener('resize', updateSize)
-  }, [])
-
-  if (!isDesktop) return null
-
-  return (
-    <div className="pointer-events-none absolute inset-0 -z-10">
-      <motion.div
-        className="absolute left-10 top-10 h-40 w-40 rounded-full bg-emerald-400/20 blur-2xl"
-        animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-10 right-10 h-48 w-48 rounded-full bg-rose-500/20 blur-2xl"
-        animate={{ y: [0, 20, 0], x: [0, -10, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-    </div>
-  )
-}
-
 // --- Main Hero + Accordion ---
 export default function HeroAccordion() {
   const [activeIndex, setActiveIndex] = useState(0)

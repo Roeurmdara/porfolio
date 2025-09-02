@@ -2,23 +2,19 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download } from "lucide-react";
+import { Download } from "lucide-react"; // ArrowRight removed
 import Link from "next/link";
 import Image from "next/image";
 import { ScrollReveal } from "../ScrollReveal";
-
-
-
-
 
 const MotionImage = motion(Image);
 
 export default function Hero() {
   return (
     <section id="home" className="relative isolate overflow-hidden" aria-label="Hero">
-     
-
       <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pb-20 pt-16 md:grid-cols-2 md:gap-10 md:px-6 md:pb-28 md:pt-24">
+        
+        {/* Left Column */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,7 +37,7 @@ export default function Hero() {
             containerClassName="mt-4"
             textClassName="font-bold tracking-tight"
           >
-            Hi! I'm Dara .
+            Hi! I&apos;m Dara .
           </ScrollReveal>
 
           <ScrollReveal
@@ -61,7 +57,6 @@ export default function Hero() {
             <Button asChild className="group">
               <Link href="#projects">
                 View Projects
-               
               </Link>
             </Button>
             <Button variant="outline" asChild>
@@ -79,6 +74,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
+        {/* Right Column */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -102,6 +98,7 @@ export default function Hero() {
             />
           </div>
         </motion.div>
+
       </div>
     </section>
   );

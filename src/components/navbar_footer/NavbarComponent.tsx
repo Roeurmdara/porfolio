@@ -2,10 +2,10 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { Menu, Github, Linkedin, Mail } from "lucide-react"
+import { Menu, Mail, Github, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import ThemeToggle from "@/components/ui/theme-toggle"
+
 
 const sections = [
   { href: "#projects", label: "Projects" },

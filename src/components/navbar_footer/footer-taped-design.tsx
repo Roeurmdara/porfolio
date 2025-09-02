@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 
-import {Linkedin, Twitter} from 'lucide-react';
+
 
 const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" viewBox="0 0 95 80" fill="none">
 <path d="M1 45L70.282 5L88.282 36.1769L19 76.1769L1 45Z" fill="#222222"/>
@@ -10,7 +10,7 @@ const tape = <svg xmlns="http://www.w3.org/2000/svg" width="95" height="80" view
 </svg>
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  
 
   return (
    <footer className="my-8 px- max-w-9xl text-base-content mx-auto border-b border-t border-neutral/10">

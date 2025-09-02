@@ -2,7 +2,8 @@
 
 import { motion, useSpring } from "framer-motion";
 import { FC, JSX, useEffect, useRef, useState } from "react";
-// Utility function 'cn' (classnames) - implemented directly to resolve import error
+
+// Utility function 'cn' (classnames)
 function cn(...inputs: (string | undefined | null | boolean)[]) {
   return inputs.filter(Boolean).join(" ");
 }
@@ -129,9 +130,7 @@ export function SmoothCursor({
   onCursorLeave,
   disabled = false,
 }: SmoothCursorProps) {
-  const [isMoving, setIsMoving] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [isClicking, setIsClicking] = useState(false);
   const [trail, setTrail] = useState<Position[]>([]);
 
   const lastMousePos = useRef<Position>({ x: 0, y: 0 });
@@ -177,38 +176,28 @@ export function SmoothCursor({
     const updateTrail = (pos: Position) => {
       if (!showTrail) return;
 
-      setTrail(function (prev) {
-        const newTrail = [pos].concat(prev.slice(0, trailLength - 1));
-        return newTrail;
-      });
+      setTrail((prev) => [pos, ...prev.slice(0, trailLength - 1)]);
     };
 
     const findMagneticElement = (x: number, y: number) => {
       const elements = document.querySelectorAll(magneticElements);
-
-      // Fix: Convert NodeListOf<Element> to an array for reliable iteration
       for (const element of Array.from(elements)) {
         const rect = element.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-        const distance = Math.sqrt(
-          Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
-        );
+        const distance = Math.hypot(x - centerX, y - centerY);
 
-        if (distance < magneticDistance) {
-          return { x: centerX, y: centerY, distance };
-        }
+        if (distance < magneticDistance) return { x: centerX, y: centerY, distance };
       }
       return null;
     };
 
     const smoothMouseMove = (e: MouseEvent) => {
-      let currentPos = { x: e.clientX, y: e.clientY };
+      let currentPos: Position = { x: e.clientX, y: e.clientY };
 
-      // Check for magnetic elements
       const magneticTarget = findMagneticElement(currentPos.x, currentPos.y);
       if (magneticTarget) {
-        const strength = 1 - (magneticTarget.distance / magneticDistance);
+        const strength = 1 - magneticTarget.distance / magneticDistance;
         currentPos = {
           x: currentPos.x + (magneticTarget.x - currentPos.x) * strength * 0.3,
           y: currentPos.y + (magneticTarget.y - currentPos.y) * strength * 0.3,
@@ -218,9 +207,7 @@ export function SmoothCursor({
       updateVelocity(currentPos);
       updateTrail(currentPos);
 
-      const speed = Math.sqrt(
-        Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2),
-      );
+      const speed = Math.hypot(velocity.current.x, velocity.current.y);
 
       cursorX.set(currentPos.x);
       cursorY.set(currentPos.y);
@@ -228,62 +215,44 @@ export function SmoothCursor({
       onCursorMove?.(currentPos);
 
       if (speed > 0.1 && rotateOnMove) {
-        const currentAngle =
-          Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) +
-          90;
+        const currentAngle = Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) + 90;
 
         let angleDiff = currentAngle - previousAngle.current;
         if (angleDiff > 180) angleDiff -= 360;
         if (angleDiff < -180) angleDiff += 360;
         accumulatedRotation.current += angleDiff;
+
         rotation.set(accumulatedRotation.current);
         previousAngle.current = currentAngle;
 
         scale.set(0.95);
-        setIsMoving(true);
-
-        const timeout = setTimeout(function () {
-          scale.set(1);
-          setIsMoving(false);
-        }, 150);
-
-        return function () {
-          return clearTimeout(timeout);
-        };
+        const timeout = setTimeout(() => scale.set(1), 150);
+        return () => clearTimeout(timeout);
       }
     };
 
-    const handleMouseEnter = function () {
+    const handleMouseEnter = () => {
       setIsVisible(true);
       onCursorEnter?.();
     };
 
-    const handleMouseLeave = function () {
-      if (hideOnLeave) {
-        setIsVisible(false);
-      }
+    const handleMouseLeave = () => {
+      if (hideOnLeave) setIsVisible(false);
       onCursorLeave?.();
     };
 
-    const handleMouseDown = function () {
-      if (scaleOnClick) {
-        setIsClicking(true);
-        scale.set(0.8);
-      }
+    const handleMouseDown = () => {
+      if (scaleOnClick) scale.set(0.8);
     };
 
-    const handleMouseUp = function () {
-      if (scaleOnClick) {
-        setIsClicking(false);
-        scale.set(1);
-      }
+    const handleMouseUp = () => {
+      if (scaleOnClick) scale.set(1);
     };
 
     let rafId: number;
-    const throttledMouseMove = function (e: MouseEvent) {
+    const throttledMouseMove = (e: MouseEvent) => {
       if (rafId) return;
-
-      rafId = requestAnimationFrame(function () {
+      rafId = requestAnimationFrame(() => {
         smoothMouseMove(e);
         rafId = 0;
       });
@@ -296,7 +265,7 @@ export function SmoothCursor({
     document.addEventListener("mousedown", handleMouseDown);
     document.addEventListener("mouseup", handleMouseUp);
 
-    return function () {
+    return () => {
       window.removeEventListener("mousemove", throttledMouseMove);
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);
@@ -327,9 +296,8 @@ export function SmoothCursor({
 
   return (
     <>
-      {/* Trail Effect */}
-      {showTrail && trail.map(function (pos, index) {
-        return (
+      {showTrail &&
+        trail.map((pos, index) => (
           <motion.div
             key={index}
             style={{
@@ -340,15 +308,13 @@ export function SmoothCursor({
               translateY: "-50%",
               zIndex: 99 - index,
               pointerEvents: "none",
-              opacity: (trailLength - index) / trailLength * 0.5,
-              scale: (trailLength - index) / trailLength * 0.8,
+              opacity: ((trailLength - index) / trailLength) * 0.5,
+              scale: ((trailLength - index) / trailLength) * 0.8,
             }}
             className="w-2 h-2 bg-current rounded-full"
           />
-        );
-      })}
+        ))}
 
-      {/* Main Cursor */}
       <motion.div
         style={{
           position: "fixed",
@@ -361,16 +327,12 @@ export function SmoothCursor({
           zIndex: 100,
           pointerEvents: "none",
           willChange: "transform",
-          filter: glowEffect ? "drop-shadow(0 0 10px " + color + "40)" : "none", // String concatenation
+          filter: glowEffect ? `drop-shadow(0 0 10px ${color}40)` : "none",
         }}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0, opacity: 0 }}
-        transition={{
-          type: "spring",
-          stiffness: 400,
-          damping: 30,
-        }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
         className={cn("select-none", className)}
       >
         {cursorElement}
