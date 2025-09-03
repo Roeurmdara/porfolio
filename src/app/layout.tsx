@@ -26,19 +26,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${dmSans.variable} antialiased`}
-    >
-      <head />
+    <html lang="en" className={`${spaceGrotesk.variable} ${dmSans.variable} antialiased`}>
       <body className="relative">
-        <Navbar /> {/* ✅ Move Navbar inside <body> */}
+        <Navbar />
         {children}
-        <Footer /> {/* ✅ Move Footer inside <body> */}
+        <Footer />
       </body>
     </html>
   );
