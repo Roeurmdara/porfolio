@@ -40,13 +40,13 @@ const education: Edu[] = [
     location: "Phnom Penh",
     period: "2024",
     highlights: ["good", "full stack developer", "1st generation"],
-    logo: "https://i.pinimg.com/1200x/d0/4b/d2/d04bd2b689ded954e70ce4fdd6df1a58.jpg",
+    logo: "/OIP.jpg",
   },
 ];
 
 export default function Education() {
   return (
-    <section id="education" className="scroll-mt-20 py-16 border-b">
+    <section id="education" className="scroll-mt-20 py-16 border-b border-1 ">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="mb-8">
           <h2 className="text-3xl font-semibold">Education</h2>
@@ -57,7 +57,7 @@ export default function Education() {
 
         <div className="relative">
           <div
-            className="absolute left-4 top-0 bottom-0 w-px bg-border md:left-1/2"
+            className="absolute left-4 top-0 bottom-0 w-px bg-border border-1 md:left-1/2"
             aria-hidden
           />
           <div className="grid gap-8">
@@ -90,7 +90,7 @@ export default function Education() {
                 >
                   <Card className="border-muted-foreground/10">
                     <CardContent className="flex items-start gap-4 p-6">
-                      <div className="hidden shrink-0 rounded-lg border bg-white p-2 md:inline-flex">
+                      <div className="hidden shrink-0 rounded-lg border  bg-white p-2 md:inline-flex">
                         <div className="relative h-12 w-12">
                           <Image
                             src={

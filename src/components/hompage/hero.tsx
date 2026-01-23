@@ -60,7 +60,7 @@ export default function Hero() {
               </Link>
             </Button>
             <Button variant="outline" asChild>
-              <a href="/resume.png" download>
+              <a href="/Cv.png" download>
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume
               </a>
@@ -71,6 +71,8 @@ export default function Hero() {
             <span className="rounded-full bg-emerald-500/10 px-2 py-1">Next.js</span>
             <span className="rounded-full bg-rose-500/10 px-2 py-1">Framer Motion</span>
             <span className="rounded-full bg-amber-500/10 px-2 py-1">TypeScript</span>
+            <span className="rounded-full bg-blue-500/40 border-blue-500/40 border text-blue-500/100 px-2 py-1">Native Khmer</span>
+            <span className="rounded-full bg-violet-500/40 border-violet-500/40 border text-violet-500/100 px-2 py-1">Advanced English</span>
           </div>
         </motion.div>
 
